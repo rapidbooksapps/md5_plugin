@@ -17,7 +17,7 @@ import android.util.Base64;
 import android.util.Log;
 
 /** Md5Plugin */
-public class Md5Plugin implements MethodCallHandler {
+public class Md5Plugin implements MethodCallHandler,FlutterPlugin {
   /** Plugin registration. *//*
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "md5_plugin");
@@ -33,12 +33,23 @@ public class Md5Plugin implements MethodCallHandler {
     }
   }*/
 
+  @Override
+  public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+    // TODO: your plugin is now attached to a Flutter experience.
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), "md5_plugin");
+    channel.setMethodCallHandler(new Md5Plugin());
+  }
+
+  @Override
+  public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    // TODO: your plugin is no longer attached to a Flutter experience.
+  }
+
   private final int BUFFER_SIZE = 1024 * 8;
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "md5_plugin");
-    channel.setMethodCallHandler(new Md5Plugin());
+
   }
 
   @Override
